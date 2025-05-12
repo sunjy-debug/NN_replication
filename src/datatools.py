@@ -82,13 +82,13 @@ def treatmentSimulation(w_c,X,A,betaConfounding,betaNeighborConfounding):
 
     covariate2TreatmentMechanism = sigmod(np.matmul(w_c,X.T))
     neighbors = np.sum(A,1)
-    print (np.sum(neighbors==0))
+    // print (np.sum(neighbors==0))
     neighborAverage = np.divide(np.matmul(A, covariate2TreatmentMechanism.reshape(-1)), neighbors)
-    print (np.mean(betaConfounding*covariate2TreatmentMechanism+betaNeighborConfounding*neighborAverage),np.std(betaConfounding*covariate2TreatmentMechanism+betaNeighborConfounding*neighborAverage))
+    // print (np.mean(betaConfounding*covariate2TreatmentMechanism+betaNeighborConfounding*neighborAverage),np.std(betaConfounding*covariate2TreatmentMechanism+betaNeighborConfounding*neighborAverage))
     propensityT= sigmod(betaConfounding*covariate2TreatmentMechanism+betaNeighborConfounding*neighborAverage)
     meanT = np.mean(propensityT)
     T = np.array([1 if x>meanT else 0 for x in propensityT])
-    print ("Lenght of treatment vector:{}".format(len(T)))
+    // print ("Lenght of treatment vector:{}".format(len(T)))
 
     return T,meanT
 
@@ -111,13 +111,13 @@ def potentialOutcomeSimulation(w,X,A,T,epsilon,betaTreat2Outcome,betaCovariate2O
     neighborAverage = np.divide(np.matmul(A, covariate2OutcomeMechanism.reshape(-1)), neighbors)
 
     if Z is None:
-        print ("generate Z")
+        // print ("generate Z")
         neighborAverageT = np.divide(np.matmul(A, T.reshape(-1)), neighbors)
     else:
-        print ("use Z")
+        // print ("use Z")
         neighborAverageT = Z
     potentialOutcome = betaTreat2Outcome*T + betaCovariate2Outcome*covariate2OutcomeMechanism + betaNeighborCovariate2Outcome*neighborAverage+betaNeighborTreatment2Outcome*neighborAverageT+betaNoise*epsilon
-    print ("Lenght of potentialOutcome vector:{}".format(len(potentialOutcome)))
+    // print ("Lenght of potentialOutcome vector:{}".format(len(potentialOutcome)))
 
     return potentialOutcome
 
