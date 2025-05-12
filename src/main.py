@@ -78,7 +78,7 @@ exp.train()
 """Moel Predicting"""
 exp.predict()
 
-if args.model == "NetEsimator" and args.save_intermediate:
+if args.save_intermediate:
     exp.save_curve()
     exp.save_embedding()
 
